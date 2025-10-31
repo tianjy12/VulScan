@@ -15,7 +15,7 @@ public class HttpService
     /// <summary>
     /// 发送HTTP请求
     /// </summary>
-    public static HttpResponseMessage SendHttpRequest(string pocUrl, HttpMethod httpMethod, string requestBody, string userAgent)
+    public static async Task<HttpResponseMessage?> SendHttpRequestAsync(string pocUrl, HttpMethod httpMethod, string requestBody, string userAgent)
     {
         HttpRequestMessage httpRequestMessage = new HttpRequestMessage(httpMethod, pocUrl);
 
@@ -30,7 +30,7 @@ public class HttpService
 
         try
         {
-            httpResponseMessage = HttpClient.Send(httpRequestMessage);
+            httpResponseMessage = await HttpClient.SendAsync(httpRequestMessage);
         }
         catch (Exception e)
         {

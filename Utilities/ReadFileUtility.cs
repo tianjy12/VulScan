@@ -9,13 +9,13 @@ public class ReadFileUtility
     /// 从配置文件中读取内容，按属性名映射，反序列化成Config对象
     /// </summary>
     /// <returns></returns>
-    public static Config ReadConfig()
+    public static POC ReadConfig()
     {
-        string ConfigFilePath = Path.Combine(AppContext.BaseDirectory, "Config.yaml");
+        string ConfigFilePath = Path.Combine(AppContext.BaseDirectory, "POC.yaml");
         string configData = File.ReadAllText(ConfigFilePath);
         var deserializer = new Deserializer();
-        Config config = deserializer.Deserialize<Config>(configData);
-        return config;
+        POC poc = deserializer.Deserialize<POC>(configData);
+        return poc;
     }
 
 

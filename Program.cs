@@ -4,64 +4,89 @@ using VulScan.Modules;
 
 public class Progarm
 {
-    private static ScanArtuments ParseArguments(string[] args)
+    public static string Url;
+    public static string FileName;
+    public static int Threads = 25;
+    
+    private static void ParseArguments(string[] args)
     {
-        ScanArtuments scanArtuments = new ScanArtuments();
         
         int index = Array.IndexOf(args, "-u");
         if (index != -1)
         {
-            scanArtuments.Url = args[index + 1];
+            Url = args[index + 1];
         }
         
         index = Array.IndexOf(args, "-f");
         if (index != -1)
         {
-            scanArtuments.FileName = args[index + 1];
+            FileName = args[index + 1];
+        }
+        
+        index = Array.IndexOf(args, "-t");
+        if (index != -1)
+        {
+            Threads = int.Parse(args[index + 1]);
         }
         
         index = Array.IndexOf(args, "-h");
         if (index != -1)
         {
-            ColorUtility.PrintColored("Usage: ./VulScan -u <url> -f <fileName>", ColorType.Yellow);
+            ColorUtility.PrintColored("Usage: ./VulScan -u <url> -f <fileName> -v <threads>", ColorType.Yellow);
         }
-        
-        return scanArtuments;
     }
     
-    public static void Main(string[] args)
+    public static async Task Main(string[] args)
     {
         LogoUtility.PrintLogo();
 
-        ScanArtuments scanArtuments = ParseArguments(args);
+        ParseArguments(args);
         
-        Config config = ReadFileUtility.ReadConfig();
+        POC poc = ReadFileUtility.ReadConfig();
+        
+        List<Task> tasks = new List<Task>();
+        
+        var semaphore = new SemaphoreSlim(Threads);
 
-        if (!string.IsNullOrEmpty(scanArtuments.FileName))
+        Action<string> createTask = (url) =>
         {
-            List<string> urls = ReadFileUtility.ReadUrls(scanArtuments.FileName);
-            foreach (var kv in config.Requests)
+            foreach (KeyValuePair<string, Request> kvp in poc.Requests)
             {
-                string vulName = kv.Key;
-                Request request = kv.Value;
+                string vulName = kvp.Key;
+                Request request = kvp.Value;
 
-                foreach (string url in urls)
+                tasks.Add(Task.Run(async () =>
                 {
-                    VulnerabilityChecker.Check(vulName, url, request);
-                }
+                    await semaphore.WaitAsync();
+                    try
+                    {
+                        await VulnerabilityChecker.CheckAsync(vulName, url, request);
+                    }
+                    finally
+                    {
+                        semaphore.Release();
+                    }
+                }));
             }
-            OutputUtility.OutputFile();
-        }
-        else if (!string.IsNullOrEmpty(scanArtuments.Url))
-        {
-            foreach (var kv in config.Requests)
-            {
-                string vulName = kv.Key;
-                Request request = kv.Value;
+        };
         
-                VulnerabilityChecker.Check(vulName, scanArtuments.Url, request);
+        // 指定-f参数
+        if (!string.IsNullOrEmpty(FileName))
+        {
+            List<string> urls = ReadFileUtility.ReadUrls(FileName);
+            foreach (string url in urls)
+            {
+                createTask(url);
             }
-            OutputUtility.OutputFile();
         }
+        
+        // 指定-u参数
+        else if (!string.IsNullOrEmpty(Url))
+        {
+            createTask(Url);
+        }
+        
+        await Task.WhenAll(tasks);
+        WriteFileUtility.OutputFile();
     }
 }
