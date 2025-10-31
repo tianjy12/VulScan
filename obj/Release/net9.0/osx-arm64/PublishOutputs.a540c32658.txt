@@ -1,2 +1,0 @@
-/Users/asy0y0/MyCode/Dotnet/VulScan/VulScan/bin/Release/net9.0/osx-arm64/publish/VulScan.pdb
-/Users/asy0y0/MyCode/Dotnet/VulScan/VulScan/bin/Release/net9.0/osx-arm64/publish/VulScan
