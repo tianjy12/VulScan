@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("VulScan")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9fabae08adcb8c2166f3b088e325de8cf46a9905")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+55ab9d182d04b6619206041b5df1c8ac93633161")]
 [assembly: System.Reflection.AssemblyProductAttribute("VulScan")]
 [assembly: System.Reflection.AssemblyTitleAttribute("VulScan")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

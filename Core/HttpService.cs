@@ -13,7 +13,7 @@ public class HttpService
     private static readonly HttpClient HttpClient = new HttpClient(HttpClientHandler);
     
     /// <summary>
-    /// 发送HTTP请求
+    /// 发送HTTP请求，返回响应
     /// </summary>
     public static async Task<HttpResponseMessage?> SendHttpRequestAsync(string pocUrl, HttpMethod httpMethod, string requestBody, string userAgent)
     {
@@ -44,13 +44,6 @@ public class HttpService
     /// </summary>
     public static bool HandleHttpResponse(string vulName, HttpStatusCode httpStatusCode, string responseBody)
     {
-        switch (vulName)
-        {
-            case "AstrBot任意文件读取漏洞":
-                return httpStatusCode == HttpStatusCode.OK && responseBody.Contains("username") && responseBody.Contains("password");
-            default:
-                break;
-        }
-        return false;
+        return httpStatusCode == HttpStatusCode.OK && responseBody.Contains("username") && responseBody.Contains("password");
     }
 }
