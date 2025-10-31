@@ -1,30 +1,67 @@
-﻿using VulScan.Common;
+﻿using VulScan.Utilities;
 using VulScan.Core;
-using VulScan.Module;
+using VulScan.Modules;
 
 public class Progarm
 {
-    public static void Main(string[] args)
+    private static ScanArtuments ParseArguments(string[] args)
     {
-        LogoUtility.PrintLogo();
-        
-        Config config = ReadConfigUtility.ReadConfig();
-
-        string url = "";
+        ScanArtuments scanArtuments = new ScanArtuments();
         
         int index = Array.IndexOf(args, "-u");
         if (index != -1)
         {
-            url = args[index + 1];
+            scanArtuments.Url = args[index + 1];
         }
         
-        foreach (var kvp in config.Requests)
+        index = Array.IndexOf(args, "-f");
+        if (index != -1)
         {
-            string vulName = kvp.Key;
-            Request request = kvp.Value;
-        
-            CheckVul.Check(vulName, url, request);
+            scanArtuments.FileName = args[index + 1];
         }
-        OutputUtility.OutputFile();
+        
+        index = Array.IndexOf(args, "-h");
+        if (index != -1)
+        {
+            ColorUtility.PrintColored("Usage: ./VulScan -u <url> -f <fileName>", ColorType.Yellow);
+        }
+        
+        return scanArtuments;
+    }
+    
+    public static void Main(string[] args)
+    {
+        LogoUtility.PrintLogo();
+
+        ScanArtuments scanArtuments = ParseArguments(args);
+        
+        Config config = ReadFileUtility.ReadConfig();
+
+        if (!string.IsNullOrEmpty(scanArtuments.FileName))
+        {
+            List<string> urls = ReadFileUtility.ReadUrls(scanArtuments.FileName);
+            foreach (var kv in config.Requests)
+            {
+                string vulName = kv.Key;
+                Request request = kv.Value;
+
+                foreach (string url in urls)
+                {
+                    VulnerabilityChecker.Check(vulName, url, request);
+                }
+            }
+            OutputUtility.OutputFile();
+        }
+        else if (!string.IsNullOrEmpty(scanArtuments.Url))
+        {
+            foreach (var kv in config.Requests)
+            {
+                string vulName = kv.Key;
+                Request request = kv.Value;
+        
+                VulnerabilityChecker.Check(vulName, scanArtuments.Url, request);
+            }
+            OutputUtility.OutputFile();
+        }
     }
 }

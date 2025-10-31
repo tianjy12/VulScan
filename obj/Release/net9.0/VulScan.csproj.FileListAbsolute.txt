@@ -15,3 +15,4 @@
 /Users/asy0y0/MyCode/Dotnet/VulScan/VulScan/obj/Release/net9.0/VulScan.pdb
 /Users/asy0y0/MyCode/Dotnet/VulScan/VulScan/obj/Release/net9.0/VulScan.genruntimeconfig.cache
 /Users/asy0y0/MyCode/Dotnet/VulScan/VulScan/obj/Release/net9.0/ref/VulScan.dll
+/Users/asy0y0/MyCode/Dotnet/VulScan/VulScan/obj/Release/net9.0/VulScan.sourcelink.json
