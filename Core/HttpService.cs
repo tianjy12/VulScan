@@ -46,7 +46,7 @@ public class HttpService
     {
         switch (vulName)
         {
-            case "AstrBot任意文件读取":
+            case "AstrBot任意文件读取漏洞":
                 return httpStatusCode == HttpStatusCode.OK && responseBody.Contains("username") && responseBody.Contains("password");
             default:
                 break;

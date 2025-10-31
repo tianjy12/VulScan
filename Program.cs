@@ -7,6 +7,9 @@ public class Progarm
     public static string Url;
     public static string FileName;
     public static int Threads = 25;
+    public static POC Poc = ReadFileUtility.ReadConfig();
+    public static List<Task> Tasks = new List<Task>();
+    public static SemaphoreSlim SemaphoreSlim;
     
     private static void ParseArguments(string[] args)
     {
@@ -35,6 +38,28 @@ public class Progarm
             ColorUtility.PrintColored("Usage: ./VulScan -u <url> -f <fileName> -v <threads>", ColorType.Yellow);
         }
     }
+
+    private static void CreateTask(string url)
+    {
+        foreach (KeyValuePair<string, Request> kvp in Poc.Requests)
+        {
+            string vulName = kvp.Key;
+            Request request = kvp.Value;
+
+            Tasks.Add(Task.Run(async () =>
+            {
+                await SemaphoreSlim.WaitAsync();
+                try
+                {
+                    await VulnerabilityChecker.CheckAsync(vulName, url, request);
+                }
+                finally
+                {
+                    SemaphoreSlim.Release();
+                }
+            }));
+        }
+    }
     
     public static async Task Main(string[] args)
     {
@@ -42,51 +67,25 @@ public class Progarm
 
         ParseArguments(args);
         
-        POC poc = ReadFileUtility.ReadConfig();
-        
-        List<Task> tasks = new List<Task>();
-        
-        var semaphore = new SemaphoreSlim(Threads);
+        SemaphoreSlim = new SemaphoreSlim(Threads);
 
-        Action<string> createTask = (url) =>
-        {
-            foreach (KeyValuePair<string, Request> kvp in poc.Requests)
-            {
-                string vulName = kvp.Key;
-                Request request = kvp.Value;
-
-                tasks.Add(Task.Run(async () =>
-                {
-                    await semaphore.WaitAsync();
-                    try
-                    {
-                        await VulnerabilityChecker.CheckAsync(vulName, url, request);
-                    }
-                    finally
-                    {
-                        semaphore.Release();
-                    }
-                }));
-            }
-        };
-        
         // 指定-f参数
         if (!string.IsNullOrEmpty(FileName))
         {
             List<string> urls = ReadFileUtility.ReadUrls(FileName);
             foreach (string url in urls)
             {
-                createTask(url);
+                CreateTask(url);
             }
         }
         
         // 指定-u参数
         else if (!string.IsNullOrEmpty(Url))
         {
-            createTask(Url);
+            CreateTask(Url);
         }
         
-        await Task.WhenAll(tasks);
+        await Task.WhenAll(Tasks);
         WriteFileUtility.OutputFile();
     }
 }
