@@ -1,0 +1,17 @@
+/Users/asy0y0/MyCode/Dotnet/VulScan/VulScan/obj/Debug/net9.0/VulScan.csproj.AssemblyReference.cache
+/Users/asy0y0/MyCode/Dotnet/VulScan/VulScan/obj/Debug/net9.0/VulScan.GeneratedMSBuildEditorConfig.editorconfig
+/Users/asy0y0/MyCode/Dotnet/VulScan/VulScan/obj/Debug/net9.0/VulScan.AssemblyInfoInputs.cache
+/Users/asy0y0/MyCode/Dotnet/VulScan/VulScan/obj/Debug/net9.0/VulScan.AssemblyInfo.cs
+/Users/asy0y0/MyCode/Dotnet/VulScan/VulScan/obj/Debug/net9.0/VulScan.csproj.CoreCompileInputs.cache
+/Users/asy0y0/MyCode/Dotnet/VulScan/VulScan/bin/Debug/net9.0/VulScan
+/Users/asy0y0/MyCode/Dotnet/VulScan/VulScan/bin/Debug/net9.0/VulScan.deps.json
+/Users/asy0y0/MyCode/Dotnet/VulScan/VulScan/bin/Debug/net9.0/VulScan.runtimeconfig.json
+/Users/asy0y0/MyCode/Dotnet/VulScan/VulScan/bin/Debug/net9.0/VulScan.dll
+/Users/asy0y0/MyCode/Dotnet/VulScan/VulScan/bin/Debug/net9.0/VulScan.pdb
+/Users/asy0y0/MyCode/Dotnet/VulScan/VulScan/bin/Debug/net9.0/YamlDotNet.dll
+/Users/asy0y0/MyCode/Dotnet/VulScan/VulScan/obj/Debug/net9.0/VulScan.csproj.Up2Date
+/Users/asy0y0/MyCode/Dotnet/VulScan/VulScan/obj/Debug/net9.0/VulScan.dll
+/Users/asy0y0/MyCode/Dotnet/VulScan/VulScan/obj/Debug/net9.0/refint/VulScan.dll
+/Users/asy0y0/MyCode/Dotnet/VulScan/VulScan/obj/Debug/net9.0/VulScan.pdb
+/Users/asy0y0/MyCode/Dotnet/VulScan/VulScan/obj/Debug/net9.0/VulScan.genruntimeconfig.cache
+/Users/asy0y0/MyCode/Dotnet/VulScan/VulScan/obj/Debug/net9.0/ref/VulScan.dll
