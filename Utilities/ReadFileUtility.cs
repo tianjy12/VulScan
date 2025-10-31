@@ -8,7 +8,6 @@ public class ReadFileUtility
     /// <summary>
     /// 从配置文件中读取内容，按属性名映射，反序列化成Config对象
     /// </summary>
-    /// <returns></returns>
     public static POC ReadConfig()
     {
         string ConfigFilePath = Path.Combine(AppContext.BaseDirectory, "POC.yaml");
@@ -22,7 +21,6 @@ public class ReadFileUtility
     /// <summary>
     /// 从文件中批量读取URL进行扫描
     /// </summary>
-    /// <returns></returns>
     public static List<string> ReadUrls(string filePath)
     {
         filePath = Path.Combine(AppContext.BaseDirectory, filePath);
